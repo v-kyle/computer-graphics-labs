@@ -1,26 +1,20 @@
 class GraphHelper {
-  context = document.getElementById('canvas').getContext('2d');
-  
-  w = window.innerWidth;
-  cw = this.w / 2;
-  h = window.innerHeight;
-  ch = this.h / 2;
-  
   padding = 20;
   
-  constructor(ctx, w, h, padding = 20) {
-    if (ctx) {
-      this.context = ctx
-    }
-    this.w = w;
-    this.cw = w / 2;
-    this.h = h;
-    this.ch = h / 2;
+  constructor() {
+    const canvas = document.getElementById('canvas');
+    this.context = canvas.getContext('2d');
+    
+    this.w = canvas.width = window.innerWidth / 2;
+    this.cw = this.w / 2;
+    this.h = canvas.height = window.innerHeight;
+    this.ch = this.h / 2;
+    this.context.font = "18px Arial";
   }
   
   changeCoordinateSystem() {
     this.context.transform(1, 0, 0, -1, 0, this.h)
-    this.context.translate(this.w / 2, this.h / 2);
+    this.context.translate(this.cw, this.ch);
   }
   
   labelAxes() {
@@ -55,6 +49,10 @@ class GraphHelper {
     this.context.lineTo(this.cw - 25, -5);
     this.context.closePath();
     this.context.fill();
+  }
+  
+  getContext() {
+    return this.context;
   }
 }
 

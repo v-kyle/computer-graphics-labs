@@ -1,21 +1,18 @@
 import GraphHelper from "./GraphHelper.js";
+import FigureHelper from "./FigureHelper.js";
 
-const canvas = document.getElementById('canvas');
-const context = canvas.getContext('2d');
-
-const w = canvas.width = window.innerWidth / 2;
-const cw = w / 2;
-const h = canvas.height = window.innerHeight;
-const ch = h / 2;
-
-context.font = "18px Arial";
-
-const graphHelper = new GraphHelper(context, w, h);
+const graphHelper = new GraphHelper();
 
 graphHelper.labelAxes();
 graphHelper.changeCoordinateSystem();
 graphHelper.drawAxes();
 
+const figureHelper = new FigureHelper(graphHelper.getContext());
+const drawBtn = document.getElementById('draw-btn');
+drawBtn.addEventListener('click', figureHelper.drawFigure.bind(figureHelper));
 
-// context.fillStyle = "#0000ff";
-// context.fillRect(0 - 75, 0 - 75, 150, 150);
+const rotateBtn = document.getElementById('rotate-btn');
+rotateBtn.addEventListener('click', figureHelper.rotateFigure.bind(figureHelper));
+
+const clearBtn = document.getElementById('clear-btn');
+clearBtn.addEventListener('click', () => window.location.refresh());
